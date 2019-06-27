@@ -19,12 +19,12 @@ socketServer.on("connection", socket => {
             .to(projectId)
             .emit("join-project", socket.id + " just joined this project");
     });
-});
 
-socketServer.on("file-change", (document: Document) => {
-    console.log("File change", document);
-    const project = document.project;
-    socketServer.to(project).emit("file-change", document);
+    socket.on("file-change", (document: Document) => {
+        console.log("File change", document);
+        const project = document.project;
+        socketServer.to(project).emit("file-change", document);
+    });
 });
 
 const port = process.env.PORT;

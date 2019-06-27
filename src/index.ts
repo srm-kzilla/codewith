@@ -15,10 +15,9 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 socketServer.on("connection", socket => {
     socket.on("join-project", (projectId: string) => {
         socket.join(projectId);
-        socket.emit(
-            "joined-project",
-            "Successfully joined project: " + projectId
-        );
+        socketServer
+            .to(projectId)
+            .emit("join-project", socket.id + " just joined this project");
     });
 });
 

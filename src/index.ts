@@ -22,6 +22,7 @@ socketServer.on("connection", socket => {
 });
 
 socketServer.on("file-change", (document: Document) => {
+    console.log("File change", document);
     const project = document.project;
     socketServer.to(project).emit("file-change", document);
 });
